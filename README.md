@@ -1,2 +1,2 @@
-# ATMLocator
-A microservice demonstration offering service to locate ATM in UK 
+# SpringBoot services
+A microservice demonstration using SpringBoot as framework 

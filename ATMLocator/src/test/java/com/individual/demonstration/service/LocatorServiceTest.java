@@ -13,7 +13,7 @@ public class LocatorServiceTest {
 
     @Test
     public void testLocate(){
-        final String response = this.service.locate("2");
+        final String response = this.service.locate("LFFFBC11");
         Assertions.assertNotNull(response);
     }
 }

@@ -24,8 +24,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
-    implementation 'org.springdoc:springdoc-openapi-ui:1.6.4'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.4'
 }
 
 test {
@@ -33,4 +33,3 @@ test {
 }
 
 sourceSets.main.java.srcDirs = ['src/main/generated','src/main/java']
-//tasks["compileJava"].dependsOn(":RestClientBuilder:clean").dependsOn(":RestClientBuilder:build")

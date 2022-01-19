@@ -13,17 +13,6 @@ buildscript {
 apply plugin: 'base'
 group = 'com.individual.demonstration'
 
-//configurations {
-//    instrumentedJars {
-//        canBeConsumed = true
-//        canBeResolved = false
-//    }
-//}
-//
-//artifacts {
-//    instrumentedJars(build)
-//}
-
 subprojects {
     repositories {
         mavenCentral()
@@ -35,30 +24,10 @@ subprojects {
     sourceCompatibility = 11
     targetCompatibility = 11
     compileJava.options.fork = true
-    /* Setting the build directory of the subproject
-       to user-service-contract/build/[projectName]
-     */
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-    // Source folder is now different as the build directory is set to a custom path
-    sourceSets {
-        main {
-            java {
-                srcDir "${project.buildDir}/src/main/java".toString()
-            }
-        }
-    }
-    // This is just for generating the source jar
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
-        from sourceSets.main.allSource
-    }
-    artifacts {
-        archives sourcesJar
-    }
 }
 
 project("client") { //
-    // Actual task for generating the server
     task generateServer {
         doLast {
             def config = new CodegenConfigurator()
@@ -66,7 +35,7 @@ project("client") { //
             config.setApiPackage("com.individual.demonstration.api")            // Package to be used for the API interfaces
             config.setModelPackage("com.individual.demonstration.model")        // Package to be used for the API models
             config.setInputSpec("$projectDir/swagger/Open Data API V2.2.yaml".toString()) // The swagger API file
-            config.setOutputDir("$rootDir/src/main/generated".toString())        // The output directory, user-service-contract/build/user-service-server/
+            config.setOutputDir("$rootDir/src/main/generated".toString())        // The output directory
             config.setAdditionalProperties([
                     'dateLibrary'     : 'java11', // Date library to use
                     'useTags'         : 'true',  // Use tags for the naming
@@ -75,9 +44,5 @@ project("client") { //
             new DefaultGenerator().opts(config.toClientOptInput()).generate() // Executing the generation
         }
     }
-    /* Defining the order of the tasks and the dependency between them.
-       As this is a Java project, it will execute the generateServer task first,
-       then the compilation of the generated files.
-     */
     compileJava.dependsOn('generateServer')
 }

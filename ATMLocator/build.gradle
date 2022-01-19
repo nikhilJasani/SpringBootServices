@@ -2,6 +2,8 @@ plugins {
     id 'org.springframework.boot' version '2.6.2'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'com.github.johnrengelman.processes' version '0.5.0'
+    id 'org.springdoc.openapi-gradle-plugin' version '1.3.3'
 }
 
 group = 'com.individual.demonstration'
@@ -10,16 +12,19 @@ sourceCompatibility = '11'
 
 repositories {
     mavenCentral()
-    mavenLocal()
     maven { url "https://repo1.maven.org/maven2" }
 }
 
 dependencies {
-    implementation 'org.apache.httpcomponents:httpclient:4.5.12'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+    implementation 'org.apache.httpcomponents:httpclient-cache:4.5.13'
     implementation 'javax.validation:validation-api:2.0.1.Final'
+    implementation 'org.eclipse.jdt:org.eclipse.jdt.annotation:2.2.0'
     implementation 'io.springfox:springfox-swagger2:2.7.0'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.4'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
@@ -28,4 +33,4 @@ test {
 }
 
 sourceSets.main.java.srcDirs = ['src/main/generated','src/main/java']
-tasks["compileJava"].dependsOn(":RestClientBuilder:clean").dependsOn(":RestClientBuilder:build")
+//tasks["compileJava"].dependsOn(":RestClientBuilder:clean").dependsOn(":RestClientBuilder:build")

@@ -4,7 +4,7 @@
 #       openjdk version 11
 #
 #   build image using
-#       docker build -t "atm-locator-app"
+#       docker build . -t "atm-locator-app"
 #
 #   run container using
 #       docker run -it -p 8080:8080 atm-locator-app

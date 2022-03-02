@@ -27,22 +27,19 @@ subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
 
-project("client") { //
-    task generateServer {
-        doLast {
-            def config = new CodegenConfigurator()
-            config.setLang("spring")
-            config.setApiPackage("com.individual.demonstration.api")            // Package to be used for the API interfaces
-            config.setModelPackage("com.individual.demonstration.model")        // Package to be used for the API models
-            config.setInputSpec("$projectDir/swagger/Open Data API V2.2.yaml".toString()) // The swagger API file
-            config.setOutputDir("$rootDir/src/main/generated".toString())        // The output directory
-            config.setAdditionalProperties([
-                    'dateLibrary'     : 'java11', // Date library to use
-                    'useTags'         : 'true',  // Use tags for the naming
-                    'interfaceOnly'   : 'true'   // Generating the Controller API interface and the models only
-            ])
-            new DefaultGenerator().opts(config.toClientOptInput()).generate() // Executing the generation
-        }
+task generateClient {
+    doLast {
+        def config = new CodegenConfigurator()
+        config.setLang("spring")
+        config.setApiPackage("com.individual.demonstration.api")            // Package to be used for the API interfaces
+        config.setModelPackage("com.individual.demonstration.model")        // Package to be used for the API models
+        config.setInputSpec("$projectDir/src/main/resources/Open Data API V2.2.yaml".toString()) // The swagger API file
+        config.setOutputDir("$rootDir/src/main/generated".toString())        // The output directory
+        config.setAdditionalProperties([
+                'dateLibrary'     : 'java11', // Date library to use
+                'useTags'         : 'true',  // Use tags for the naming
+                'interfaceOnly'   : 'true'   // Generating the Controller API interface and the models only
+        ])
+        new DefaultGenerator().opts(config.toClientOptInput()).generate() // Executing the generation
     }
-    compileJava.dependsOn('generateServer')
 }

@@ -1,4 +1,2 @@
 rootProject.name = 'ATMLocator'
 include ':RestClientBuilder'
-include ':RestClientBuilder:client'
-
